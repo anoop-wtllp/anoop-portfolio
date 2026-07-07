@@ -12,8 +12,26 @@ import OrbitRing from "./components/OrbitRing";
 import SkillsShowcase from "./components/SkillsShowcase";
 import ExperienceTimeline from "./components/ExperienceTimeline";
 import { TechIcon } from "./components/TechIcon";
-import { FaGithub, FaLinkedinIn, FaEnvelope, FaFileArrowDown } from "react-icons/fa6";
-import { PROFILE, STATS, FOCUS, PROJECTS, EDUCATION } from "./data";
+import {
+  FaGithub,
+  FaLinkedinIn,
+  FaEnvelope,
+  FaFileArrowDown,
+  FaStar,
+  FaLock,
+  FaArrowUpRightFromSquare,
+} from "react-icons/fa6";
+import {
+  LuGraduationCap,
+  LuStore,
+  LuPlane,
+  LuBookOpen,
+  LuNetwork,
+  LuScrollText,
+  LuAward,
+  LuCircleCheck,
+} from "react-icons/lu";
+import { PROFILE, STATS, FOCUS, PROJECTS, EDUCATION, type Project } from "./data";
 
 export default function Home() {
   const [featured, ...restProjects] = PROJECTS;
@@ -133,7 +151,7 @@ export default function Home() {
                     href="/resume"
                     className="inline-flex items-center gap-2 rounded-full border border-white/12 px-6 py-3 text-sm font-medium text-foreground hover:border-accent hover:bg-white/[0.04]"
                   >
-                    <FaFileArrowDown /> Résumé
+                    <FaFileArrowDown /> Resume
                   </a>
                 </div>
               </Reveal>
@@ -284,55 +302,85 @@ export default function Home() {
           subtitle="A selection of production apps across EdTech, booking, agency and study-abroad platforms."
         />
 
-        {/* featured project */}
+        {/* featured project — browser mockup */}
         <Reveal className="mt-12">
           <TiltCard className="gradient-border rounded-[var(--radius)]">
-            <div className="grid gap-6 p-6 md:grid-cols-[minmax(0,240px)_1fr] md:items-stretch md:p-8">
-              <div
-                className="dotted relative grid min-h-[200px] place-items-center overflow-hidden rounded-2xl border border-white/8"
-                style={{
-                  background: `radial-gradient(120% 120% at 30% 20%, color-mix(in oklab, ${featured.accent} 26%, transparent), transparent 70%)`,
-                }}
-              >
-                {/* floating stack icons */}
-                {featured.stack.map((s, k) => (
-                  <span
-                    key={s}
-                    className="absolute text-2xl opacity-80"
-                    style={{
-                      left: `${18 + k * 22}%`,
-                      top: k % 2 === 0 ? "22%" : "64%",
-                      animation: `float ${2.6 + k * 0.4}s ease-in-out ${k * 0.3}s infinite`,
-                    }}
-                  >
-                    <TechIcon name={s} className="drop-shadow-lg" />
+            <div className="grid gap-6 p-5 md:grid-cols-2 md:items-center md:p-7">
+              {/* browser window */}
+              <div className="overflow-hidden rounded-xl border border-white/10 bg-black/40 shadow-2xl">
+                <div className="flex items-center gap-2 border-b border-white/8 bg-white/[0.03] px-3 py-2.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+                  <span className="ml-2 flex flex-1 items-center gap-1.5 truncate rounded-md bg-white/[0.05] px-2.5 py-1 font-mono text-[10px] text-muted">
+                    <FaLock className="text-[9px] text-accent-3" />
+                    {featured.link
+                      ? featured.linkLabel
+                      : "localhost:3000"}
                   </span>
-                ))}
-                <span className="relative text-6xl drop-shadow-xl">{featured.emoji}</span>
+                </div>
+                <div
+                  className="dotted relative grid h-48 place-items-center overflow-hidden"
+                  style={{
+                    background: `radial-gradient(120% 120% at 30% 15%, color-mix(in oklab, ${featured.accent} 28%, transparent), transparent 70%)`,
+                  }}
+                >
+                  {featured.stack.map((s, k) => (
+                    <span
+                      key={s}
+                      className="absolute text-2xl opacity-80"
+                      style={{
+                        left: `${16 + k * 22}%`,
+                        top: k % 2 === 0 ? "24%" : "62%",
+                        animation: `float ${2.6 + k * 0.4}s ease-in-out ${k * 0.3}s infinite`,
+                      }}
+                    >
+                      <TechIcon name={s} className="drop-shadow-lg" />
+                    </span>
+                  ))}
+                  <span className="relative text-6xl drop-shadow-xl">
+                    {featured.emoji}
+                  </span>
+                </div>
               </div>
-              <div className="flex flex-col justify-center">
-                <span className="w-fit rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-accent">
-                  ★ Featured
-                </span>
+
+              {/* content */}
+              <div className="flex flex-col justify-center md:pl-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-accent">
+                    <FaStar className="text-[10px]" /> Featured
+                  </span>
+                  <CategoryBadge project={featured} />
+                </div>
                 <h3 className="mt-3 text-2xl font-semibold group-hover:text-gradient sm:text-3xl">
                   {featured.title}
                 </h3>
                 <p className="mt-3 max-w-xl leading-7 text-muted">
                   {featured.blurb}
                 </p>
-                <div className="mt-5">
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {featured.metrics.map((m) => (
+                    <li
+                      key={m}
+                      className="inline-flex items-center gap-1.5 rounded-md bg-white/[0.04] px-2.5 py-1 text-xs text-muted"
+                    >
+                      <span className="h-1 w-1 rounded-full bg-accent-3" /> {m}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-5 flex items-center justify-between gap-4">
                   <StackChips items={featured.stack} />
+                  {featured.link && (
+                    <a
+                      href={featured.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-xs font-medium text-background hover:scale-[1.04]"
+                    >
+                      Visit <FaArrowUpRightFromSquare className="text-[10px]" />
+                    </a>
+                  )}
                 </div>
-                {featured.link && (
-                  <a
-                    href={featured.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-5 inline-flex w-fit items-center gap-1.5 font-mono text-xs text-accent-2 hover:text-foreground"
-                  >
-                    {featured.linkLabel ?? "Visit site"} <span aria-hidden>↗</span>
-                  </a>
-                )}
               </div>
             </div>
           </TiltCard>
@@ -343,37 +391,64 @@ export default function Home() {
           {restProjects.map((p, i) => (
             <Reveal key={p.title} delay={i * 90}>
               <TiltCard className="gradient-border h-full rounded-[var(--radius)]">
-                <div className="flex h-full flex-col p-6">
-                  <div className="flex items-start justify-between">
-                    <span
-                      className="grid h-12 w-12 place-items-center rounded-xl text-2xl"
-                      style={{ background: `color-mix(in oklab, ${p.accent} 18%, transparent)` }}
-                    >
-                      {p.emoji}
-                    </span>
-                    <span className="font-mono text-xs text-muted">
+                <div className="flex h-full flex-col">
+                  {/* cover strip */}
+                  <div
+                    className="dotted relative flex h-28 items-center justify-center overflow-hidden rounded-t-[var(--radius)] border-b border-white/8"
+                    style={{
+                      background: `radial-gradient(100% 120% at 50% 0%, color-mix(in oklab, ${p.accent} 26%, transparent), transparent 72%)`,
+                    }}
+                  >
+                    <TechIcon
+                      name={p.stack[0]}
+                      className="absolute -left-3 -top-3 text-7xl opacity-10"
+                    />
+                    <span className="relative text-4xl drop-shadow-lg">{p.emoji}</span>
+                    <span className="absolute right-3 top-3 font-mono text-xs text-muted">
                       0{i + 2}
                     </span>
                   </div>
-                  <h3 className="mt-5 text-lg font-semibold group-hover:text-gradient">
-                    {p.title}
-                  </h3>
-                  <p className="mt-2 flex-1 text-sm leading-6 text-muted">
-                    {p.blurb}
-                  </p>
-                  <div className="mt-5">
-                    <StackChips items={p.stack} />
+
+                  <div className="flex flex-1 flex-col p-6">
+                    <CategoryBadge project={p} />
+                    <h3 className="mt-3 text-lg font-semibold group-hover:text-gradient">
+                      {p.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-muted">{p.blurb}</p>
+                    <ul className="mt-4 space-y-1.5">
+                      {p.metrics.map((m) => (
+                        <li
+                          key={m}
+                          className="flex items-center gap-2 text-xs text-muted"
+                        >
+                          <span className="h-1 w-1 shrink-0 rounded-full bg-accent-3" />
+                          {m}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-auto flex items-center justify-between gap-3 pt-5">
+                      <StackChips items={p.stack} />
+                      {p.link ? (
+                        <a
+                          href={p.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Visit ${p.title}`}
+                          className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-white/10 text-accent-2 hover:border-accent hover:text-foreground"
+                        >
+                          <FaArrowUpRightFromSquare className="text-[11px]" />
+                        </a>
+                      ) : (
+                        <span
+                          aria-label="Client project"
+                          className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-white/10 text-muted"
+                          title="Private / client project"
+                        >
+                          <FaLock className="text-[11px]" />
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  {p.link && (
-                    <a
-                      href={p.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs text-accent-2 hover:text-foreground"
-                    >
-                      {p.linkLabel ?? "Visit site"} <span aria-hidden>↗</span>
-                    </a>
-                  )}
                 </div>
               </TiltCard>
             </Reveal>
@@ -382,22 +457,76 @@ export default function Home() {
       </section>
 
       {/* ============================ EDUCATION ============================ */}
-      <section id="education" className="section mx-auto max-w-4xl px-6">
-        <SectionHeading index="05" kicker="Academics" title="Education" />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
-          {EDUCATION.map((edu, i) => (
-            <Reveal key={edu.degree} delay={i * 100}>
-              <div className="glass h-full rounded-2xl p-6 lift">
-                <span className="font-mono text-xs text-accent-2">
-                  {edu.period}
-                </span>
-                <h3 className="mt-2 text-lg font-semibold leading-snug">
-                  {edu.degree}
-                </h3>
-                <p className="mt-1 text-sm text-muted">{edu.school}</p>
-              </div>
-            </Reveal>
-          ))}
+      <section id="education" className="section mx-auto max-w-6xl px-6">
+        <SectionHeading
+          index="05"
+          kicker="Academics"
+          title="Education"
+          subtitle="Formal grounding in computer science — currently pursuing a B.Tech alongside full-time engineering work."
+        />
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {EDUCATION.map((edu, i) => {
+            const EduIcon = EDU_ICON[edu.icon];
+            const pursuing = edu.status === "Pursuing";
+            return (
+              <Reveal key={edu.degree} delay={i * 90}>
+                <div className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius)] border border-white/8 bg-white/[0.02] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.04]">
+                  {/* accent glow */}
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-40"
+                    style={{ background: "var(--accent)" }}
+                  />
+                  {/* top accent bar */}
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 top-0 h-0.5"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, var(--accent), var(--accent-2), transparent)",
+                    }}
+                  />
+
+                  <div className="flex items-start justify-between">
+                    <span className="grid h-12 w-12 place-items-center rounded-xl border border-accent/30 bg-accent/10 text-accent transition-transform duration-300 group-hover:scale-110">
+                      <EduIcon className="text-2xl" />
+                    </span>
+                    {pursuing ? (
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-accent-3/30 bg-accent-3/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-accent-3">
+                        <span className="relative flex h-1.5 w-1.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-3" />
+                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent-3" />
+                        </span>
+                        Pursuing
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted">
+                        <LuCircleCheck className="text-xs" /> Completed
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="mt-5 text-base font-semibold leading-snug">
+                    {edu.degree}
+                  </h3>
+                  <p className="mt-1.5 flex-1 text-sm leading-6 text-muted">
+                    {edu.school}
+                  </p>
+
+                  <div className="mt-4 flex items-center justify-between border-t border-white/[0.06] pt-3">
+                    <span className="font-mono text-xs text-accent-2">
+                      {edu.period}
+                    </span>
+                    {edu.field && (
+                      <span className="font-mono text-[11px] text-muted">
+                        {edu.field}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 
@@ -461,6 +590,32 @@ export default function Home() {
         </div>
       </footer>
     </main>
+  );
+}
+
+/* ---------- project category badge ---------- */
+
+const CATEGORY_ICON = {
+  grad: LuGraduationCap,
+  plane: LuPlane,
+  store: LuStore,
+  book: LuBookOpen,
+  api: LuNetwork,
+};
+
+const EDU_ICON = {
+  cap: LuGraduationCap,
+  scroll: LuScrollText,
+  award: LuAward,
+};
+
+function CategoryBadge({ project }: { project: Project }) {
+  const Icon = CATEGORY_ICON[project.categoryIcon];
+  return (
+    <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-muted">
+      <Icon className="text-xs text-accent-2" />
+      {project.category}
+    </span>
   );
 }
 

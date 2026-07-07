@@ -122,14 +122,19 @@ const PROJECTS = [
 
 const EDUCATION = [
   {
-    degree: "Bachelor of Computer Applications (BCA)",
-    school: "Swami Vivekanand Subharti University",
-    period: "2019 – 2023",
+    degree: "B.Tech — Computer Science & Engineering",
+    school: "Dr. A.P.J. Abdul Kalam Technical University, Uttar Pradesh",
+    period: "Jul 2024 – Jul 2027 (Pursuing)",
   },
   {
     degree: "Diploma in Computer Science & Engineering",
     school: "Feroze Gandhi Polytechnic, Raebareli",
     period: "2022 – 2024",
+  },
+  {
+    degree: "Bachelor of Computer Applications (BCA)",
+    school: "Swami Vivekanand Subharti University",
+    period: "2019 – 2023",
   },
 ];
 

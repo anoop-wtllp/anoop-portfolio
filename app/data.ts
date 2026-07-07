@@ -228,7 +228,10 @@ export const EXPERIENCE: Experience[] = [
 
 export type Project = {
   title: string;
+  category: string;
+  categoryIcon: "grad" | "plane" | "store" | "book" | "api";
   blurb: string;
+  metrics: string[];
   stack: string[];
   emoji: string;
   accent: string;
@@ -238,25 +241,25 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
-    title: "Online Learning Platform",
+    title: "RoundArk Academy",
+    category: "Study Abroad",
+    categoryIcon: "grad",
     blurb:
-      "RESTful API built from scratch with modular routing, full CRUD, MongoDB integration and JWT-secured authentication & authorization middleware.",
-    stack: ["Node.js", "Express.js", "MongoDB", "JWT"],
+      "Study-abroad consultancy platform for students targeting the UK, Canada, Australia & USA — university listings, scholarship portal, student profiling and counselling-session booking.",
+    metrics: ["500+ universities", "Scholarship portal", "Counselling booking"],
+    stack: ["CodeIgniter", "PHP", "MySQL"],
     emoji: "🎓",
-    accent: "var(--accent)",
-  },
-  {
-    title: "Flight & Hotel Booking App",
-    blurb:
-      "Full-featured booking platform with real-time TripJack API integration, JWT auth, role-based access control and a comprehensive admin panel.",
-    stack: ["Laravel", "MySQL", "TripJack API", "RBAC"],
-    emoji: "✈️",
-    accent: "var(--accent-2)",
+    accent: "var(--accent-4)",
+    link: "https://sa.roundark.academy",
+    linkLabel: "sa.roundark.academy",
   },
   {
     title: "Agency Network",
+    category: "Marketplace",
+    categoryIcon: "store",
     blurb:
       "Multi-country agency discovery platform with dynamic listings, category search, project posting / quote management and a moderated reviews & ratings system.",
+    metrics: ["Multi-country", "Quote management", "Reviews & ratings"],
     stack: ["CodeIgniter", "PHP", "MySQL"],
     emoji: "🌐",
     accent: "var(--accent-3)",
@@ -264,14 +267,26 @@ export const PROJECTS: Project[] = [
     linkLabel: "agencynetwork.org",
   },
   {
-    title: "RoundArk Academy",
+    title: "Flight & Hotel Booking App",
+    category: "Fintech · Booking",
+    categoryIcon: "plane",
     blurb:
-      "Study-abroad consultancy platform for students targeting UK, Canada, Australia & USA — 500+ university listings, scholarship portal, student profiling and counselling booking.",
-    stack: ["CodeIgniter", "PHP", "MySQL"],
-    emoji: "🧑‍🎓",
-    accent: "var(--accent-4)",
-    link: "https://sa.roundark.academy",
-    linkLabel: "sa.roundark.academy",
+      "Full-featured booking platform with real-time TripJack API integration, JWT auth, role-based access control and a comprehensive admin panel.",
+    metrics: ["Real-time TripJack API", "JWT · RBAC", "Admin panel"],
+    stack: ["Laravel", "MySQL", "REST APIs"],
+    emoji: "✈️",
+    accent: "var(--accent-2)",
+  },
+  {
+    title: "Online Learning Platform",
+    category: "EdTech · API",
+    categoryIcon: "book",
+    blurb:
+      "RESTful API built from scratch with modular routing, full CRUD, MongoDB integration and JWT-secured authentication & authorization middleware.",
+    metrics: ["Modular REST API", "Full CRUD", "JWT middleware"],
+    stack: ["Node.js", "Express", "MongoDB", "JWT"],
+    emoji: "📚",
+    accent: "var(--accent)",
   },
 ];
 
@@ -279,17 +294,34 @@ export type Education = {
   degree: string;
   school: string;
   period: string;
+  status: "Pursuing" | "Completed";
+  icon: "cap" | "scroll" | "award";
+  field?: string;
 };
 
 export const EDUCATION: Education[] = [
   {
-    degree: "Bachelor of Computer Applications (BCA)",
-    school: "Swami Vivekanand Subharti University",
-    period: "2019 — 2023",
+    degree: "B.Tech — Computer Science & Engineering",
+    school: "Dr. A.P.J. Abdul Kalam Technical University, Uttar Pradesh",
+    period: "Jul 2024 — Jul 2027",
+    status: "Pursuing",
+    icon: "cap",
+    field: "Computer Science",
   },
   {
     degree: "Diploma in Computer Science & Engineering",
     school: "Feroze Gandhi Polytechnic, Raebareli",
     period: "2022 — 2024",
+    status: "Completed",
+    icon: "scroll",
+    field: "Computer Science",
+  },
+  {
+    degree: "Bachelor of Computer Applications (BCA)",
+    school: "Swami Vivekanand Subharti University",
+    period: "2019 — 2023",
+    status: "Completed",
+    icon: "award",
+    field: "Computer Applications",
   },
 ];
