@@ -9,17 +9,11 @@ import TiltCard from "./components/TiltCard";
 import TechMarquee from "./components/TechMarquee";
 import ArchitectureDiagram from "./components/ArchitectureDiagram";
 import OrbitRing from "./components/OrbitRing";
+import SkillsShowcase from "./components/SkillsShowcase";
+import ExperienceTimeline from "./components/ExperienceTimeline";
 import { TechIcon } from "./components/TechIcon";
 import { FaGithub, FaLinkedinIn, FaEnvelope, FaFileArrowDown } from "react-icons/fa6";
-import {
-  PROFILE,
-  STATS,
-  FOCUS,
-  SKILL_GROUPS,
-  EXPERIENCE,
-  PROJECTS,
-  EDUCATION,
-} from "./data";
+import { PROFILE, STATS, FOCUS, PROJECTS, EDUCATION } from "./data";
 
 export default function Home() {
   const [featured, ...restProjects] = PROJECTS;
@@ -136,7 +130,7 @@ export default function Home() {
                     </span>
                   </a>
                   <a
-                    href="/Anoop-Maurya-Resume.pdf"
+                    href="/resume"
                     className="inline-flex items-center gap-2 rounded-full border border-white/12 px-6 py-3 text-sm font-medium text-foreground hover:border-accent hover:bg-white/[0.04]"
                   >
                     <FaFileArrowDown /> Résumé
@@ -261,42 +255,11 @@ export default function Home() {
           index="02"
           kicker="Toolkit"
           title="Skills & Stack"
-          subtitle="A full-stack toolkit spanning product engineering, distributed systems and applied AI."
+          subtitle="A full-stack toolkit spanning product engineering, distributed systems and applied AI. Filter by category to explore."
         />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SKILL_GROUPS.map((group, gi) => (
-            <Reveal key={group.title} delay={gi * 80}>
-              <TiltCard className="glass h-full rounded-[var(--radius)] p-6">
-                <div className="mb-6 flex items-center gap-3">
-                  <span
-                    className="h-2.5 w-2.5 rounded-full"
-                    style={{ background: group.accent, boxShadow: `0 0 16px ${group.accent}` }}
-                  />
-                  <h3 className="text-base font-semibold">{group.title}</h3>
-                </div>
-                <ul className="space-y-4">
-                  {group.skills.map((skill) => (
-                    <li key={skill.name}>
-                      <div className="mb-1.5 flex justify-between text-[13px]">
-                        <span className="text-foreground">{skill.name}</span>
-                        <span className="font-mono text-muted">{skill.level}%</span>
-                      </div>
-                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]">
-                        <div
-                          className="skill-fill h-full rounded-full"
-                          style={{
-                            width: `${skill.level}%`,
-                            background: `linear-gradient(90deg, ${group.accent}, var(--accent-2))`,
-                          }}
-                        />
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </TiltCard>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal className="mt-12">
+          <SkillsShowcase />
+        </Reveal>
       </section>
 
       {/* ============================ EXPERIENCE ============================ */}
@@ -305,51 +268,11 @@ export default function Home() {
           index="03"
           kicker="Journey"
           title="Experience"
-          subtitle="1.6+ years shipping across three companies — backend, full-stack and DevOps."
+          subtitle="Shipping across three companies — backend, full-stack and DevOps. Tenure is calculated live from role dates."
         />
-        <div className="relative mt-12">
-          <div
-            className="absolute bottom-0 left-[7px] top-2 w-px"
-            style={{
-              background:
-                "linear-gradient(var(--accent), var(--accent-2), var(--accent-3), transparent)",
-            }}
-          />
-          <div className="space-y-6">
-            {EXPERIENCE.map((exp, i) => (
-              <Reveal key={i} delay={i * 90}>
-                <div className="relative pl-10">
-                  <span
-                    className="absolute left-0 top-6 h-4 w-4 rounded-full border-2 border-background bg-accent"
-                    style={{ boxShadow: "0 0 0 4px rgba(16,185,129,0.18)" }}
-                  />
-                  <div className="glass rounded-2xl p-6 lift">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h3 className="text-lg font-semibold">{exp.role}</h3>
-                      <span className="font-mono text-xs text-accent-2">
-                        {exp.period}
-                      </span>
-                    </div>
-                    <p className="mt-0.5 text-sm text-accent">{exp.company}</p>
-                    <p className="mt-3 text-sm leading-6 text-muted">
-                      {exp.description}
-                    </p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {exp.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-md border border-white/8 bg-white/[0.03] px-2.5 py-1 font-mono text-[11px] text-muted"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
+        <Reveal className="mt-12">
+          <ExperienceTimeline />
+        </Reveal>
       </section>
 
       {/* ============================ PROJECTS ============================ */}

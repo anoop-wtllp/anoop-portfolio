@@ -26,6 +26,8 @@ import {
   SiPrisma,
   SiJsonwebtokens,
 } from "react-icons/si";
+import { LuBrain, LuSparkles, LuNetwork, LuInfinity, LuTerminal } from "react-icons/lu";
+import { TbApi } from "react-icons/tb";
 
 type Entry = { Icon: IconType; color: string };
 
@@ -56,6 +58,13 @@ export const TECH: Record<string, Entry> = {
   Redux: { Icon: SiRedux, color: "#A47DE0" },
   Prisma: { Icon: SiPrisma, color: "#CBD5E1" },
   JWT: { Icon: SiJsonwebtokens, color: "#EC4899" },
+  // concept skills (no brand mark)
+  "REST APIs": { Icon: TbApi, color: "#a3e635" },
+  Microservices: { Icon: LuNetwork, color: "#22d3ee" },
+  "CI/CD": { Icon: LuInfinity, color: "#10b981" },
+  "Generative AI": { Icon: LuSparkles, color: "#D97757" },
+  "LLM / RAG": { Icon: LuBrain, color: "#5eead4" },
+  "Prompt Engineering": { Icon: LuTerminal, color: "#a3e635" },
 };
 
 // Order shown in the marquee

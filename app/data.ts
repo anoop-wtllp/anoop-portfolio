@@ -132,10 +132,63 @@ export const SKILL_GROUPS: SkillGroup[] = [
   },
 ];
 
+// Interactive skills grid — names must match keys in TechIcon's TECH map.
+export type TechSkill = { name: string; category: string; level: number };
+
+export const SKILL_CATEGORIES = [
+  "All",
+  "Backend",
+  "Frontend",
+  "Data",
+  "Systems",
+  "DevOps",
+  "AI",
+] as const;
+
+export const TECH_SKILLS: TechSkill[] = [
+  // Backend
+  { name: "Node.js", category: "Backend", level: 90 },
+  { name: "Express", category: "Backend", level: 88 },
+  { name: "Laravel", category: "Backend", level: 88 },
+  { name: "PHP", category: "Backend", level: 90 },
+  { name: "REST APIs", category: "Backend", level: 90 },
+  // Frontend
+  { name: "React", category: "Frontend", level: 90 },
+  { name: "Next.js", category: "Frontend", level: 85 },
+  { name: "TypeScript", category: "Frontend", level: 84 },
+  { name: "JavaScript", category: "Frontend", level: 92 },
+  { name: "Tailwind", category: "Frontend", level: 88 },
+  { name: "Bootstrap", category: "Frontend", level: 85 },
+  // Data
+  { name: "MongoDB", category: "Data", level: 88 },
+  { name: "MySQL", category: "Data", level: 90 },
+  { name: "PostgreSQL", category: "Data", level: 82 },
+  { name: "Redis", category: "Data", level: 82 },
+  { name: "Prisma", category: "Data", level: 78 },
+  // Systems
+  { name: "Microservices", category: "Systems", level: 82 },
+  { name: "Kafka", category: "Systems", level: 80 },
+  { name: "RabbitMQ", category: "Systems", level: 78 },
+  // DevOps
+  { name: "Docker", category: "DevOps", level: 84 },
+  { name: "GitHub Actions", category: "DevOps", level: 85 },
+  { name: "Git", category: "DevOps", level: 92 },
+  { name: "Postman", category: "DevOps", level: 88 },
+  { name: "CI/CD", category: "DevOps", level: 85 },
+  // AI
+  { name: "Claude", category: "AI", level: 85 },
+  { name: "Generative AI", category: "AI", level: 84 },
+  { name: "LLM / RAG", category: "AI", level: 80 },
+  { name: "Prompt Engineering", category: "AI", level: 88 },
+];
+
 export type Experience = {
   role: string;
   company: string;
-  period: string;
+  // machine-readable YYYY-MM for auto-calculated durations
+  start: string;
+  end: string | null; // null = present
+  icon: "code" | "server" | "layers";
   description: string;
   tags: string[];
 };
@@ -144,7 +197,9 @@ export const EXPERIENCE: Experience[] = [
   {
     role: "Web Developer",
     company: "Webcity Technology LLP",
-    period: "Jan 2026 — Present",
+    start: "2026-01",
+    end: null,
+    icon: "layers",
     description:
       "Build and maintain web applications using PHP, Laravel, CodeIgniter, MySQL and JavaScript. Develop REST APIs, ERP modules and admin dashboards, and configured GitHub Actions CI/CD pipelines to automate build, test and deployment — cutting manual effort and production errors.",
     tags: ["Laravel", "CodeIgniter", "MySQL", "GitHub Actions", "CI/CD"],
@@ -152,18 +207,22 @@ export const EXPERIENCE: Experience[] = [
   {
     role: "Software Developer",
     company: "Flamingo Infotech Pvt. Ltd.",
-    period: "Apr 2025 — Oct 2025",
+    start: "2025-04",
+    end: "2025-10",
+    icon: "code",
     description:
       "Developed scalable Laravel/PHP backend modules, admin dashboards and custom business features across multiple concurrent client deployments. Integrated third-party APIs and payment gateways to enable secure financial transactions in client-facing apps.",
-    tags: ["Laravel", "PHP", "Payment Gateways", "REST APIs"],
+    tags: ["Laravel", "PHP", "REST APIs"],
   },
   {
     role: "Backend Developer",
     company: "NPR Supporting Services Pvt. Ltd.",
-    period: "Oct 2024 — Mar 2025",
+    start: "2024-10",
+    end: "2025-03",
+    icon: "server",
     description:
       "Designed and optimized RESTful APIs with Node.js and Express.js, and architected MongoDB schemas with query tuning for high-volume operations. Implemented JWT authentication and role-based access control middleware across all secured endpoints.",
-    tags: ["Node.js", "Express.js", "MongoDB", "JWT", "RBAC"],
+    tags: ["Node.js", "Express", "MongoDB", "JWT"],
   },
 ];
 
