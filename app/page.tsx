@@ -11,6 +11,7 @@ import ArchitectureDiagram from "./components/ArchitectureDiagram";
 import OrbitRing from "./components/OrbitRing";
 import SkillsShowcase from "./components/SkillsShowcase";
 import ExperienceTimeline from "./components/ExperienceTimeline";
+import { ContactMethods, ContactSocials } from "./components/ContactPanel";
 import { TechIcon } from "./components/TechIcon";
 import {
   FaGithub,
@@ -30,6 +31,12 @@ import {
   LuScrollText,
   LuAward,
   LuCircleCheck,
+  LuClock,
+  LuMapPin,
+  LuMessageSquare,
+  LuArrowUp,
+  LuMail,
+  LuPhone,
 } from "react-icons/lu";
 import { PROFILE, STATS, FOCUS, PROJECTS, EDUCATION, type Project } from "./data";
 
@@ -534,59 +541,194 @@ export default function Home() {
       <section id="contact" className="section relative overflow-hidden px-6">
         <div aria-hidden className="absolute inset-0 -z-10">
           <div
-            className="aurora-blob left-1/2 top-1/2 h-[50vw] w-[50vw] -translate-x-1/2 -translate-y-1/2"
-            style={{ background: "var(--accent)", opacity: 0.24, animation: "aurora 20s ease-in-out infinite" }}
+            className="aurora-blob left-[10%] top-1/3 h-[42vw] w-[42vw]"
+            style={{ background: "var(--accent)", opacity: 0.22, animation: "aurora 20s ease-in-out infinite" }}
+          />
+          <div
+            className="aurora-blob right-[8%] bottom-[6%] h-[34vw] w-[34vw]"
+            style={{ background: "var(--accent-4)", opacity: 0.18, animation: "aurora 24s ease-in-out infinite reverse" }}
           />
         </div>
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="font-mono text-sm text-accent-2">06 · Contact</p>
-          <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-6xl">
-            Let&apos;s build something{" "}
-            <span className="text-gradient">great</span> together.
-          </h2>
-          <p className="mx-auto mt-5 max-w-lg text-muted">
-            Have a project, a role, or an idea? My inbox is always open — I&apos;ll
-            get back to you within a day.
-          </p>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href={`mailto:${PROFILE.email}`}
-              className="group inline-flex items-center gap-3 rounded-full bg-foreground px-7 py-4 text-base font-medium text-background hover:scale-[1.04]"
-            >
-              {PROFILE.email}
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </a>
-            <a
-              href={`tel:${PROFILE.phone.replace(/\s/g, "")}`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/12 px-6 py-4 text-base font-medium text-foreground hover:border-accent hover:bg-white/[0.04]"
-            >
-              {PROFILE.phone}
-            </a>
-          </div>
-          <p className="mt-5 font-mono text-sm text-muted">📍 {PROFILE.location}</p>
-          <div className="mt-10 flex items-center justify-center gap-4">
-            {Object.entries(PROFILE.socials).map(([name, url]) => (
+
+        <div className="mx-auto max-w-5xl">
+          <SectionHeading
+            index="06"
+            kicker="Contact"
+            title="Let's build something great."
+            subtitle="Open to full-time SDE / AI-engineer roles and freelance projects. Reach out on any channel — I'll reply within a day."
+          />
+
+          {/* availability + primary CTA banner */}
+          <Reveal className="mt-12">
+            <div className="glass flex flex-col gap-6 rounded-[var(--radius)] p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+              <div>
+                <div className="flex items-center gap-2.5">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-3" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent-3" />
+                  </span>
+                  <span className="text-sm font-medium text-foreground">
+                    Available for new opportunities
+                  </span>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+                  <span className="flex items-center gap-2">
+                    <LuClock className="text-accent-2" /> Replies in ~24h
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <LuMapPin className="text-accent-2" /> {PROFILE.location}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <LuMessageSquare className="text-accent-2" /> IST · UTC+5:30 ·
+                    Remote-friendly
+                  </span>
+                </div>
+              </div>
               <a
-                key={name}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-white/10 px-5 py-2 text-sm capitalize text-muted hover:border-accent hover:text-foreground"
+                href={`mailto:${PROFILE.email}`}
+                className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-4 px-7 py-4 text-sm font-semibold text-black transition-transform duration-300 hover:scale-[1.04]"
               >
-                {name}
+                Email me
+                <span className="transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
               </a>
-            ))}
-          </div>
-        </Reveal>
+            </div>
+          </Reveal>
+
+          {/* quick contact methods */}
+          <Reveal delay={100} className="mt-6">
+            <ContactMethods />
+          </Reveal>
+
+          {/* socials */}
+          <Reveal delay={160} className="mt-10 flex flex-col items-center gap-4">
+            <p className="text-xs uppercase tracking-wider text-muted">
+              Find me online
+            </p>
+            <ContactSocials />
+          </Reveal>
+        </div>
       </section>
 
       {/* ============================ FOOTER ============================ */}
-      <footer className="border-t border-white/5 px-6 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 text-sm text-muted sm:flex-row">
-          <span>© 2026 {PROFILE.name}. Crafted with Next.js &amp; Tailwind.</span>
-          <span className="font-mono text-xs">Designed &amp; built with ♥ in India</span>
+      <footer className="relative overflow-hidden border-t border-white/8">
+        {/* giant watermark */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-[-2vw] select-none text-center"
+        >
+          <span
+            className="block text-[22vw] font-bold leading-none tracking-tighter"
+            style={{
+              background:
+                "linear-gradient(180deg, color-mix(in oklab, var(--accent) 26%, transparent), color-mix(in oklab, var(--accent-2) 8%, transparent) 60%, transparent)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              WebkitTextStroke: "1px rgba(255,255,255,0.05)",
+            }}
+          >
+            ANOOP
+          </span>
+        </div>
+        {/* top glow line */}
+        <div
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent)",
+          }}
+        />
+
+        <div className="relative mx-auto max-w-6xl px-6 py-14">
+          <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1.2fr]">
+            {/* brand */}
+            <div>
+              <a href="#top" className="group inline-flex items-center gap-2.5">
+                <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-accent via-accent-4 to-accent-2 text-sm font-bold text-black transition-transform duration-300 group-hover:rotate-6">
+                  AM
+                </span>
+                <span className="text-base font-semibold tracking-tight">
+                  Anoop<span className="text-muted">.dev</span>
+                </span>
+              </a>
+              <p className="mt-4 max-w-xs text-sm leading-6 text-muted">
+                Full-Stack &amp; AI Engineer building fast, scalable, event-driven
+                web applications end-to-end.
+              </p>
+              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-3 py-1.5 text-xs text-muted">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-3" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-3" />
+                </span>
+                Available for opportunities
+              </div>
+            </div>
+
+            {/* navigate */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-foreground">
+                Navigate
+              </p>
+              <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2.5 text-sm">
+                {FOOTER_LINKS.map((l) => (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      className="text-muted transition-colors hover:text-foreground"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* contact */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-foreground">
+                Get in touch
+              </p>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                <li>
+                  <a
+                    href={`mailto:${PROFILE.email}`}
+                    className="inline-flex items-center gap-2.5 text-muted transition-colors hover:text-foreground"
+                  >
+                    <LuMail className="text-accent-2" /> {PROFILE.email}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`tel:${PROFILE.phone.replace(/\s/g, "")}`}
+                    className="inline-flex items-center gap-2.5 text-muted transition-colors hover:text-foreground"
+                  >
+                    <LuPhone className="text-accent-2" /> {PROFILE.phone}
+                  </a>
+                </li>
+                <li className="inline-flex items-center gap-2.5 text-muted">
+                  <LuMapPin className="text-accent-2" /> {PROFILE.location}
+                </li>
+              </ul>
+              <div className="mt-4">
+                <ContactSocials />
+              </div>
+            </div>
+          </div>
+
+          {/* bottom bar */}
+          <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-6 text-sm text-muted sm:flex-row">
+            <span>© 2026 {PROFILE.name}. All rights reserved.</span>
+            <a
+              href="#top"
+              className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-xs text-muted transition-colors hover:border-accent hover:text-foreground"
+            >
+              Back to top
+              <LuArrowUp className="transition-transform duration-300 group-hover:-translate-y-0.5" />
+            </a>
+          </div>
         </div>
       </footer>
     </main>
@@ -608,6 +750,16 @@ const EDU_ICON = {
   scroll: LuScrollText,
   award: LuAward,
 };
+
+const FOOTER_LINKS = [
+  { href: "#about", label: "About" },
+  { href: "#architecture", label: "Design" },
+  { href: "#skills", label: "Skills" },
+  { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Work" },
+  { href: "#education", label: "Education" },
+  { href: "#contact", label: "Contact" },
+];
 
 function CategoryBadge({ project }: { project: Project }) {
   const Icon = CATEGORY_ICON[project.categoryIcon];
