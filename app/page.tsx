@@ -9,7 +9,7 @@ import Counter from "./components/Counter";
 import TiltCard from "./components/TiltCard";
 import TechMarquee from "./components/TechMarquee";
 import ArchitectureDiagram from "./components/ArchitectureDiagram";
-import OrbitRing from "./components/OrbitRing";
+import BrainOrbit from "./components/BrainOrbit";
 import SkillsShowcase from "./components/SkillsShowcase";
 import ExperienceTimeline from "./components/ExperienceTimeline";
 import { ContactMethods, ContactSocials } from "./components/ContactPanel";
@@ -196,7 +196,7 @@ export default function Home() {
               delay={220}
               className="flex origin-center scale-[0.8] justify-center sm:scale-95 lg:scale-100 lg:justify-end"
             >
-              <OrbitRing />
+              <BrainOrbit />
             </Reveal>
           </div>
 

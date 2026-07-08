@@ -102,6 +102,11 @@ button {
   50%      { transform: translateY(-18px); }
 }
 
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.06); }
+}
+
 /* ---- intro loader (Netflix-style) ---- */
 .loader {
   position: fixed;
