@@ -1,3 +1,4 @@
+import Loader from "./components/Loader";
 import CursorGlow from "./components/CursorGlow";
 import NeuralBackground from "./components/NeuralBackground";
 import Terminal from "./components/Terminal";
@@ -45,6 +46,7 @@ export default function Home() {
 
   return (
     <main id="top" className="relative">
+      <Loader />
       <NeuralBackground />
       {/* global vignette for depth */}
       <div

@@ -102,6 +102,95 @@ button {
   50%      { transform: translateY(-18px); }
 }
 
+/* ---- intro loader (Netflix-style) ---- */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--background);
+  transform-origin: center center;
+  animation: loader-dismiss 0.85s var(--ease-out-expo) 2.35s forwards;
+}
+.loader__word {
+  font-size: clamp(4rem, 26vw, 22rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  /* layer 1: bright light beam that sweeps through — layer 2: brand fill */
+  background:
+    linear-gradient(
+      100deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.92) 50%,
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      var(--accent) 0%,
+      var(--accent-2) 55%,
+      color-mix(in oklab, var(--accent) 55%, transparent) 100%
+    );
+  background-size: 250% 100%, 100% 100%;
+  background-position: 140% 0, 0 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
+  filter: drop-shadow(0 0 48px color-mix(in oklab, var(--accent) 34%, transparent));
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+  animation:
+    loader-rise 2.2s var(--ease-out-expo) both,
+    loader-sweep 1.5s ease-in-out 0.35s both;
+}
+/* letters rise up and unfurl like a curtain, then settle with a zoom */
+@keyframes loader-rise {
+  0% {
+    transform: translateY(0.22em) scaleY(0.5) scale(0.96);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(0) scaleY(1) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scaleY(1) scale(1.06);
+    opacity: 1;
+  }
+}
+/* light beam sweeps across the glyphs (Netflix-style shine) */
+@keyframes loader-sweep {
+  0% {
+    background-position: 140% 0, 0 0;
+  }
+  100% {
+    background-position: -140% 0, 0 0;
+  }
+}
+/* zoom out through the letters as the overlay clears */
+@keyframes loader-dismiss {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(1.18);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loader {
+    animation: loader-dismiss 0.3s ease 0.2s forwards;
+  }
+  .loader__word {
+    animation: none;
+    background-position: 0 0, 0 0;
+  }
+}
+
 @keyframes gradient-shift {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
