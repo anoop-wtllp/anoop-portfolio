@@ -45,7 +45,7 @@ export default function Home() {
   const [featured, ...restProjects] = PROJECTS;
 
   return (
-    <main id="top" className="relative">
+    <main id="top" className="relative overflow-x-hidden">
       <Loader />
       <NeuralBackground />
       {/* global vignette for depth */}
@@ -192,11 +192,12 @@ export default function Home() {
             </div>
 
             {/* ---- orbit visual ---- */}
-            <Reveal
-              delay={220}
-              className="flex origin-center scale-[0.8] justify-center sm:scale-95 lg:scale-100 lg:justify-end"
-            >
-              <BrainOrbit />
+            <Reveal delay={220} className="flex justify-center lg:justify-end">
+              <div className="brain-stage">
+                <div className="brain-stage__inner">
+                  <BrainOrbit />
+                </div>
+              </div>
             </Reveal>
           </div>
 

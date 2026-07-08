@@ -107,6 +107,33 @@ button {
   50%      { transform: scale(1.06); }
 }
 
+/* ---- responsive brain visual ----
+   BrainOrbit renders at a fixed 400px. We scale the inner wrapper and give
+   the parent a matching fixed size so the *layout box* shrinks too — a plain
+   transform:scale() alone would leave a 400px box and overflow small screens. */
+.brain-stage {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+.brain-stage__inner {
+  width: 400px;
+  height: 400px;
+  transform-origin: top left;
+}
+@media (max-width: 1023px) {
+  .brain-stage { width: 340px; height: 340px; }
+  .brain-stage__inner { transform: scale(0.85); }
+}
+@media (max-width: 640px) {
+  .brain-stage { width: 300px; height: 300px; }
+  .brain-stage__inner { transform: scale(0.75); }
+}
+@media (max-width: 400px) {
+  .brain-stage { width: 250px; height: 250px; }
+  .brain-stage__inner { transform: scale(0.625); }
+}
+
 /* ---- intro loader (Netflix-style) ---- */
 .loader {
   position: fixed;
